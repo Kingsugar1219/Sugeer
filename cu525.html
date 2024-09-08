@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>贷款计算器</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f7;
+            color: #333;
+            text-align: center;
+        }
+        .header {
+            background-color: #000;
+            color: #fff;
+            padding: 20px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .loan-details {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .loan-details p {
+            margin: 10px 0;
+            font-size: 1.1rem;
+        }
+        .loan-person {
+            font-size: 2rem; /* 贷款人字体放大2倍 */
+            margin-bottom: 20px;
+        }
+        input, button {
+            padding: 12px;
+            margin: 10px 0;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #007aff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+        button:hover {
+            background-color: #0051a8;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        .image-container {
+            margin-top: 20px;
+        }
+        img {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>贷款计算器</h1>
+    </div>
+    <div class="container">
+        <p class="loan-person">贷款人: 周琳祥</p>
+
+        <div class="loan-details">
+            <p><strong>贷款内容:</strong></p>
+            <p>贷款金额: ￥30,000</p>
+            <p>年利率: 5%</p>
+            <p>还款年限: (用户输入)</p>
+        </div>
+
+        <form id="loanForm">
+            <label for="years">还款年限 (年):</label>
+            <input type="number" id="years" min="1" step="1">
+            
+            <button type="button" onclick="calculateLoan()">计算每月还款额</button>
+        </form>
+        
+        <div class="result" id="result"></div>
+        
+        <div class="image-container">
+            <img src="https://th.bing.com/th/id/OIP.RAf6V2_4h0mPgOKOqfM4GAHaEq?rs=1&pid=ImgDetMain" alt="无极 CU525 摩托车">
+        </div>
+    </div>
+
+    <script>
+        function calculateLoan() {
+            // 贷款金额
+            const principal = 30000; // 3万元
+            
+            // 获取输入值
+            const years = parseInt(document.getElementById('years').value);
+            
+            // 计算每月还款额
+            const annualInterestRate = 0.05; // 假设年利率为5%
+            const monthlyInterestRate = annualInterestRate / 12;
+            const numberOfPayments = years * 12;
+            
+            if (years <= 0) {
+                document.getElementById('result').innerText = '请输入有效的还款年限';
+                return;
+            }
+
+            const monthlyPayment = principal * (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments)) / (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1);
+            
+            // 显示结果
+            document.getElementById('result').innerText = `每月还款额: ￥${monthlyPayment.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
